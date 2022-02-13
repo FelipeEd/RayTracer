@@ -7,7 +7,7 @@
 class Camera
 {
 public:
-    Camera(float aspectRatio);
+    Camera(float aspectRatio = 800.0f / 600.0f);
     ~Camera();
 
 private:
