@@ -12,10 +12,10 @@ INCLUDE_DIR := ./include
 SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
 
 # Object files
-OBJS_FILES = $(SRC_FILES:.cpp=.o)
+OBJS_FILES = $(subst .cpp,.o,$(subst source,objects,$(SRC_FILES)))
 
 #Path to aditional files needed to compile
-INCLUDE_PATHS = -Iinclude -I$(SRC_DIR)
+INCLUDE_PATHS = -Iinclude
 
 #Aditional compile options
 COMPILER_FLAGS = -O2 
@@ -23,10 +23,10 @@ COMPILER_FLAGS = -O2
 #Executable name
 EXE_NAME = bin/$(APP_NAME).exe
 
-all : main 
+all : main
 
-main: $(OBJS)
-	$(CC) $(OBJS) $(SRC_DIR)/main.cpp $(INCLUDE_PATHS) $(COMPILER_FLAGS) -o $(EXE_NAME)
+main: $(OBJS_FILES)
+	$(CC) $(OBJS_FILES) main.cpp $(INCLUDE_PATHS) $(COMPILER_FLAGS) -o $(EXE_NAME)
 
 %.o: %.cpp
 	$(CC) -c $(INCLUDE_PATHS) $< -o $@
@@ -36,3 +36,4 @@ main: $(OBJS)
 
 clean:
 	del $(subst /,\\,$(SRC_DIR))\*.o
+
