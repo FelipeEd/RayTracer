@@ -13,15 +13,13 @@
 class RayTracer
 {
 public:
+    Camera camera;
     FrameBuffer framebuffer;
 
 public:
     RayTracer();
     ~RayTracer();
     void render(const Scene &scene);
-
-private:
-    Camera camera;
 
 private:
     glm::vec3 getHitColor(const Ray &ray, const Scene &scene);

@@ -19,7 +19,7 @@ void FrameBuffer::savePPM(const char *fileName)
         << width << ' ' << height << std::endl
         << "255" << std::endl;
 
-    for (int j = 0; j < height; j++)
+    for (int j = height - 1; j >= 0; j--)
         for (int i = 0; i < width; i++)
             ofs << (char)(data[i + j * width].r * 255) << (char)(data[i + j * width].g * 255) << (char)(data[i + j * width].b * 255);
 

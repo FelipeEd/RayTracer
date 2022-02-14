@@ -1,0 +1,5 @@
+make.exe all --dry-run --keep-going --print-directory
+make: Entering directory 'c:/GitHub/RayTracer'
+g++ ./objects/Camera.o ./objects/FrameBuffer.o ./objects/Light.o ./objects/Material.o ./objects/Ray.o ./objects/RayTracer.o ./objects/Scene.o ./objects/Sphere.o main.cpp -Iinclude  -O2  -o bin/raytracer.exe
+make: Leaving directory 'c:/GitHub/RayTracer'
+ 

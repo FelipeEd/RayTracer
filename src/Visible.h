@@ -9,9 +9,9 @@
 // Struct used to store data about a ray, in order for example to determine which object was hit first
 struct hit_record
 {
-    glm::vec3 p;
-    glm::vec3 normal;
-    float t;
+    glm::vec3 p;      // Point
+    glm::vec3 normal; // Surface normal
+    float t;          // t in which the ray hits
 };
 
 // Virtual class that objects, surfaces etc, must inherit in order to interact with rays

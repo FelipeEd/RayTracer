@@ -1,0 +1,465 @@
+make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 4.3
+# Built for Windows32
+# Copyright (C) 1988-2020 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+ 
+
+# Make data base, printed on Mon Feb 14 03:46:21 2022
+
+# Variables
+
+# environment
+FPS_BROWSER_APP_PROFILE_STRING = Internet Explorer
+# environment
+SYSTEMDRIVE = C:
+# environment
+LC_ALL = C
+# environment
+USERPROFILE = C:\Users\felip
+# environment
+LOCALAPPDATA = C:\Users\felip\AppData\Local
+# environment
+VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-3dc1c7c6-f9e7-4a53-a5f9-a238931eae75-sock
+# makefile (from 'Makefile', line 8)
+SRC_DIR := ./src
+# environment
+VSCODE_CWD = C:\Users\felip\AppData\Local\Programs\Microsoft VS Code
+# environment
+SYSTEMROOT = C:\Windows
+# environment
+PROCESSOR_LEVEL = 6
+# environment
+PSMODULEPATH = C:\Program Files\WindowsPowerShell\Modules;C:\Windows\system32\WindowsPowerShell\v1.0\Modules
+# default
+MAKE_COMMAND := make.exe
+# automatic
+@D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
+# makefile (from 'Makefile', line 9)
+OBJ_DIR := ./objects
+# environment
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_15180_CAEBIYYFLLMAJJOP
+# makefile (from 'Makefile', line 10)
+INCLUDE_DIR := ./include
+# environment
+FPS_BROWSER_USER_PROFILE_STRING = Default
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# default
+.VARIABLES := 
+# automatic
+%D = $(patsubst %/,%,$(patsubst %\,%,$(dir $%)))
+# automatic
+^D = $(patsubst %/,%,$(patsubst %\,%,$(dir $^)))
+# environment
+VSCODE_LOG_STACK = false
+# automatic
+%F = $(notdir $%)
+# environment
+VSCODE_CODE_CACHE_PATH = C:\Users\felip\AppData\Roaming\Code\CachedData\f80445acd5a3dadef24aa209168452a3d97cc326
+# environment
+LANG = C
+# makefile (from 'Makefile', line 14)
+H_SRC = $(wildcard $(SRC_DIR)/*.h)
+# default
+.LOADED := 
+# environment
+TMP = C:\Users\felip\AppData\Local\Temp
+# default
+.INCLUDE_DIRS = .
+# makefile
+MAKEFLAGS = pqrR
+# environment
+ONEDRIVE = C:\Users\felip\OneDrive
+# makefile
+CURDIR := c:/GitHub/RayTracer
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# automatic
+*D = $(patsubst %/,%,$(patsubst %\,%,$(dir $*)))
+# environment
+PROGRAMFILES = C:\Program Files
+# environment
+MFLAGS = -pqrR
+# default
+.SHELLFLAGS := -c
+# environment
+COMMONPROGRAMW6432 = C:\Program Files\Common Files
+# automatic
++D = $(patsubst %/,%,$(patsubst %\,%,$(dir $+)))
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST := Makefile
+# automatic
+@F = $(notdir $@)
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# environment
+VSCODE_PID = 15180
+# automatic
+?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
+# automatic
+*F = $(notdir $*)
+# automatic
+<D = $(patsubst %/,%,$(patsubst %\,%,$(dir $<)))
+# environment
+VSCODE_NLS_CONFIG = {"locale":"pt-br","availableLanguages":{"*":"pt-br"},"_languagePackId":"52b995fe595539ab0f09b3bcdeeb4746.pt-br","_translationsConfigFile":"C:\\Users\\felip\\AppData\\Roaming\\Code\\clp\\52b995fe595539ab0f09b3bcdeeb4746.pt-br\\tcf.json","_cacheRoot":"C:\\Users\\felip\\AppData\\Roaming\\Code\\clp\\52b995fe595539ab0f09b3bcdeeb4746.pt-br","_resolvedLanguagePackCoreLocation":"C:\\Users\\felip\\AppData\\Roaming\\Code\\clp\\52b995fe595539ab0f09b3bcdeeb4746.pt-br\\f80445acd5a3dadef24aa209168452a3d97cc326","_corruptedFile":"C:\\Users\\felip\\AppData\\Roaming\\Code\\clp\\52b995fe595539ab0f09b3bcdeeb4746.pt-br\\corrupted.info","_languagePackSupport":true}
+# environment
+ONEDRIVECONSUMER = C:\Users\felip\OneDrive
+# default
+MAKE_HOST := Windows32
+# environment
+PROGRAMDATA = C:\ProgramData
+# default
+SHELL := sh.exe
+# environment
+HOMEPATH = \Users\felip
+# default
+MAKECMDGOALS := all
+# environment
+DRIVERDATA = C:\Windows\System32\Drivers\DriverData
+# environment
+COMSPEC = C:\Windows\system32\cmd.exe
+# environment
+WINDIR = C:\Windows
+# environment
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
+# environment
+PATH = C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\Users\felip\AppData\Local\Programs\Python\Python38\Scripts\;C:\Users\felip\AppData\Local\Programs\Python\Python38\;C:\Users\felip\AppData\Local\Microsoft\WindowsApps;C:\Users\felip\AppData\Local\Programs\Microsoft VS Code\bin;C:\msys64\mingw64\x86_64-w64-mingw32\bin;C:\msys64\mingw64\bin;C:\Users\felip\AppData\Local\GitHubDesktop\bin
+# environment
+COMPUTERNAME = DESKTOP-TM4K3GU
+# default
+MAKEFILES := 
+# automatic
+^F = $(notdir $^)
+# environment
+PROMPT = $P$G
+# environment
+LOGONSERVER = \\DESKTOP-TM4K3GU
+# environment
+VSCODE_LOG_NATIVE = false
+# environment
+USERNAME = felip
+# environment
+COMMONPROGRAMFILES = C:\Program Files\Common Files
+# automatic
+?F = $(notdir $?)
+# environment
+PROGRAMW6432 = C:\Program Files
+# environment
+PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC
+# automatic
++F = $(notdir $+)
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+# environment
+USERDOMAIN = DESKTOP-TM4K3GU
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+OS = Windows_NT
+# makefile
+.DEFAULT_GOAL := all
+# makefile (from 'Makefile', line 13)
+CPP_SRC = $(wildcard $(SRC_DIR)/*.cpp)
+# default
+MAKE_VERSION := 4.3
+# environment
+PROGRAMFILES(X86) = C:\Program Files (x86)
+# makefile (from 'Makefile', line 17)
+OBJS_FILES = $(subst .cpp,.o,$(subst src,objects,$(CPP_SRC)))
+# makefile (from 'Makefile', line 26)
+EXE_NAME = bin/$(APP_NAME).exe
+# environment
+USERDOMAIN_ROAMINGPROFILE = DESKTOP-TM4K3GU
+# environment
+NUMBER_OF_PROCESSORS = 4
+# environment
+PUBLIC = C:\Users\Public
+# makefile (from 'Makefile', line 23)
+COMPILER_FLAGS = -O2 
+# environment
+APPDATA = C:\Users\felip\AppData\Roaming
+# environment
+HOMEDRIVE = C:
+# environment
+PROCESSOR_ARCHITECTURE = AMD64
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/services/extensions/node/extensionHostProcess
+# environment
+COMMONPROGRAMFILES(X86) = C:\Program Files (x86)\Common Files
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+TEMP = C:\Users\felip\AppData\Local\Temp
+# environment
+VSCODE_IPC_HOOK = \\.\pipe\65cae0989bf91ef0bfeb4a7aa13156cb-1.64.2-main-sock
+# default
+.RECIPEPREFIX := 
+# automatic
+<F = $(notdir $<)
+# default
+SUFFIXES := 
+# environment
+ALLUSERSPROFILE = C:\ProgramData
+# environment
+SESSIONNAME = Console
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync load
+# environment
+PROCESSOR_REVISION = 4e03
+# makefile (from 'Makefile', line 2)
+CC = g++
+# makefile (from 'Makefile', line 5)
+APP_NAME := raytracer
+# makefile (from 'Makefile', line 20)
+INCLUDE_PATHS = -Iinclude 
+# environment
+PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 78 Stepping 3, GenuineIntel
+# variable set hash-table stats:
+# Load=105/1024=10%, Rehash=0, Collisions=10/147=7%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# src (key c:/GitHub/RayTracer/src, mtime 1644800553): 19 files, no impossibilities.
+# . (key c:/GitHub/RayTracer, mtime 1644820252): 17 files, no impossibilities.
+# ./src (key c:/GitHub/RayTracer/src, mtime 1644800553): 19 files, no impossibilities.
+
+# 55 files, no impossibilities in 3 directories.
+
+# Implicit Rules
+
+objects/%.o: src/%.cpp
+#  recipe to execute (from 'Makefile', line 34):
+	$(CC) -c $(INCLUDE_PATHS) $< -o $@
+
+%.o: %.c
+#  recipe to execute (from 'Makefile', line 37):
+	$(CC) -c $(INCLUDE_PATHS) $< -o $@
+
+# 2 implicit rules, 0 (0.0%) terminal.
+# Files
+
+objects/Material.o: src/Material.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'Material'
+#  Last modified 2022-02-14 03:32:07
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 34):
+	$(CC) -c $(INCLUDE_PATHS) $< -o $@
+
+objects/Camera.o: src/Camera.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'Camera'
+#  Last modified 2022-02-14 03:32:06
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 34):
+	$(CC) -c $(INCLUDE_PATHS) $< -o $@
+
+# Not a target:
+src/Light.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-13 21:13:15
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-14 03:45:46
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/Ray.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-13 17:49:48
+#  File has been updated.
+#  Successfully updated.
+
+objects/FrameBuffer.o: src/FrameBuffer.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'FrameBuffer'
+#  Last modified 2022-02-14 03:32:07
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 34):
+	$(CC) -c $(INCLUDE_PATHS) $< -o $@
+
+# Not a target:
+src/Scene.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-14 03:11:23
+#  File has been updated.
+#  Successfully updated.
+
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 40):
+	del $(subst /,\\,$(OBJ_DIR))\*.o
+
+# Not a target:
+src/RayTracer.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-14 03:30:19
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/FrameBuffer.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-13 19:05:57
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+all: main
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/11=0%
+
+objects/Sphere.o: src/Sphere.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'Sphere'
+#  Last modified 2022-02-14 03:32:11
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 34):
+	$(CC) -c $(INCLUDE_PATHS) $< -o $@
+
+# Not a target:
+src/Material.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-13 21:59:34
+#  File has been updated.
+#  Successfully updated.
+
+objects/Light.o: src/Light.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'Light'
+#  Last modified 2022-02-14 03:32:07
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 34):
+	$(CC) -c $(INCLUDE_PATHS) $< -o $@
+
+# Not a target:
+src/Camera.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-13 20:57:24
+#  File has been updated.
+#  Successfully updated.
+
+main: objects/Camera.o objects/FrameBuffer.o objects/Light.o objects/Material.o objects/Ray.o objects/RayTracer.o objects/Scene.o objects/Sphere.o
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: ''
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := main
+# automatic
+# * := 
+# automatic
+# < := objects/Camera.o
+# automatic
+# + := objects/Camera.o objects/FrameBuffer.o objects/Light.o objects/Material.o objects/Ray.o objects/RayTracer.o objects/Scene.o objects/Sphere.o
+# automatic
+# % := 
+# automatic
+# ^ := objects/Camera.o objects/FrameBuffer.o objects/Light.o objects/Material.o objects/Ray.o objects/RayTracer.o objects/Scene.o objects/Sphere.o
+# automatic
+# ? := objects/Camera.o objects/FrameBuffer.o objects/Light.o objects/Material.o objects/Ray.o objects/RayTracer.o objects/Scene.o objects/Sphere.o
+# automatic
+# | := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=5/19=26%
+#  recipe to execute (from 'Makefile', line 31):
+	$(CC) $(OBJS_FILES) main.cpp $(INCLUDE_PATHS) $(COMPILER_FLAGS) -o $(EXE_NAME)
+
+objects/Scene.o: src/Scene.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'Scene'
+#  Last modified 2022-02-14 03:32:10
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 34):
+	$(CC) -c $(INCLUDE_PATHS) $< -o $@
+
+objects/Ray.o: src/Ray.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'Ray'
+#  Last modified 2022-02-14 03:32:08
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 34):
+	$(CC) -c $(INCLUDE_PATHS) $< -o $@
+
+cleanIm:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 42):
+	del $(subst /,\\,./images)\*.ppm
+
+objects/RayTracer.o: src/RayTracer.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'RayTracer'
+#  Last modified 2022-02-14 03:32:09
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 34):
+	$(CC) -c $(INCLUDE_PATHS) $< -o $@
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/Sphere.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-13 16:30:32
+#  File has been updated.
+#  Successfully updated.
+
+# files hash-table stats:
+# Load=23/1024=2%, Rehash=0, Collisions=0/69=0%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 69 / storage = 714 B / avg = 10 B
+# current buf: size = 8162 B / used = 714 B / count = 69 / avg = 10 B
+
+# strcache performance: lookups = 91 / hit rate = 24%
+# hash-table stats:
+# Load=69/8192=1%, Rehash=0, Collisions=1/91=1%
+# Finished Make data base on Mon Feb 14 03:46:21 2022
+
+ 

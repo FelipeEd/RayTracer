@@ -6,11 +6,13 @@
 #include <memory>
 #include "Visible.h"
 #include "Ray.h"
+#include "Light.h"
 
 class Scene : public Visible
 {
 public:
     std::vector<std::shared_ptr<Visible>> objects;
+    std::vector<std::shared_ptr<Light>> lights;
 
 public:
     Scene() {}
