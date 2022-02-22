@@ -5,9 +5,8 @@ make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --quest
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
- 
 
-# Make data base, printed on Mon Feb 14 03:46:21 2022
+# Make data base, printed on Mon Feb 21 20:27:00 2022
 
 # Variables
 
@@ -22,7 +21,7 @@ USERPROFILE = C:\Users\felip
 # environment
 LOCALAPPDATA = C:\Users\felip\AppData\Local
 # environment
-VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-3dc1c7c6-f9e7-4a53-a5f9-a238931eae75-sock
+VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-3362644f-597e-40c0-941a-e822d73401a3-sock
 # makefile (from 'Makefile', line 8)
 SRC_DIR := ./src
 # environment
@@ -40,7 +39,7 @@ MAKE_COMMAND := make.exe
 # makefile (from 'Makefile', line 9)
 OBJ_DIR := ./objects
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_15180_CAEBIYYFLLMAJJOP
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_17900_LPTSFUBRTOFYSQHS
 # makefile (from 'Makefile', line 10)
 INCLUDE_DIR := ./include
 # environment
@@ -78,7 +77,7 @@ CURDIR := c:/GitHub/RayTracer
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # automatic
 *D = $(patsubst %/,%,$(patsubst %\,%,$(dir $*)))
 # environment
@@ -98,7 +97,7 @@ MAKEFILE_LIST := Makefile
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 15180
+VSCODE_PID = 17900
 # automatic
 ?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # automatic
@@ -106,7 +105,7 @@ VSCODE_PID = 15180
 # automatic
 <D = $(patsubst %/,%,$(patsubst %\,%,$(dir $<)))
 # environment
-VSCODE_NLS_CONFIG = {"locale":"pt-br","availableLanguages":{"*":"pt-br"},"_languagePackId":"52b995fe595539ab0f09b3bcdeeb4746.pt-br","_translationsConfigFile":"C:\\Users\\felip\\AppData\\Roaming\\Code\\clp\\52b995fe595539ab0f09b3bcdeeb4746.pt-br\\tcf.json","_cacheRoot":"C:\\Users\\felip\\AppData\\Roaming\\Code\\clp\\52b995fe595539ab0f09b3bcdeeb4746.pt-br","_resolvedLanguagePackCoreLocation":"C:\\Users\\felip\\AppData\\Roaming\\Code\\clp\\52b995fe595539ab0f09b3bcdeeb4746.pt-br\\f80445acd5a3dadef24aa209168452a3d97cc326","_corruptedFile":"C:\\Users\\felip\\AppData\\Roaming\\Code\\clp\\52b995fe595539ab0f09b3bcdeeb4746.pt-br\\corrupted.info","_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"pt-br","availableLanguages":{"*":"pt-br"},"_languagePackId":"54c17d0348e5e6468065dc7b6e562127.pt-br","_translationsConfigFile":"C:\\Users\\felip\\AppData\\Roaming\\Code\\clp\\54c17d0348e5e6468065dc7b6e562127.pt-br\\tcf.json","_cacheRoot":"C:\\Users\\felip\\AppData\\Roaming\\Code\\clp\\54c17d0348e5e6468065dc7b6e562127.pt-br","_resolvedLanguagePackCoreLocation":"C:\\Users\\felip\\AppData\\Roaming\\Code\\clp\\54c17d0348e5e6468065dc7b6e562127.pt-br\\f80445acd5a3dadef24aa209168452a3d97cc326","_corruptedFile":"C:\\Users\\felip\\AppData\\Roaming\\Code\\clp\\54c17d0348e5e6468065dc7b6e562127.pt-br\\corrupted.info","_languagePackSupport":true}
 # environment
 ONEDRIVECONSUMER = C:\Users\felip\OneDrive
 # default
@@ -222,7 +221,7 @@ INCLUDE_PATHS = -Iinclude
 # environment
 PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 78 Stepping 3, GenuineIntel
 # variable set hash-table stats:
-# Load=105/1024=10%, Rehash=0, Collisions=10/147=7%
+# Load=105/1024=10%, Rehash=0, Collisions=10/141=7%
 
 # Pattern-specific Variable Values
 
@@ -230,11 +229,11 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 78 Stepping 3, GenuineIntel
 
 # Directories
 
-# src (key c:/GitHub/RayTracer/src, mtime 1644800553): 19 files, no impossibilities.
+# src (key c:/GitHub/RayTracer/src, mtime 1645480949): 18 files, no impossibilities.
 # . (key c:/GitHub/RayTracer, mtime 1644820252): 17 files, no impossibilities.
-# ./src (key c:/GitHub/RayTracer/src, mtime 1644800553): 19 files, no impossibilities.
+# ./src (key c:/GitHub/RayTracer/src, mtime 1645480949): 18 files, no impossibilities.
 
-# 55 files, no impossibilities in 3 directories.
+# 53 files, no impossibilities in 3 directories.
 
 # Implicit Rules
 
@@ -252,7 +251,7 @@ objects/%.o: src/%.cpp
 objects/Material.o: src/Material.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'Material'
-#  Last modified 2022-02-14 03:32:07
+#  Last modified 2022-02-21 20:21:58
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 34):
@@ -261,7 +260,7 @@ objects/Material.o: src/Material.cpp
 objects/Camera.o: src/Camera.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'Camera'
-#  Last modified 2022-02-14 03:32:06
+#  Last modified 2022-02-21 20:21:56
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 34):
@@ -291,18 +290,11 @@ src/Ray.cpp:
 objects/FrameBuffer.o: src/FrameBuffer.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'FrameBuffer'
-#  Last modified 2022-02-14 03:32:07
+#  Last modified 2022-02-21 20:21:57
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 34):
 	$(CC) -c $(INCLUDE_PATHS) $< -o $@
-
-# Not a target:
-src/Scene.cpp:
-#  Implicit rule search has been done.
-#  Last modified 2022-02-14 03:11:23
-#  File has been updated.
-#  Successfully updated.
 
 clean:
 #  Implicit rule search has not been done.
@@ -314,14 +306,14 @@ clean:
 # Not a target:
 src/RayTracer.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-02-14 03:30:19
+#  Last modified 2022-02-21 20:25:57
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 src/FrameBuffer.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-02-13 19:05:57
+#  Last modified 2022-02-21 20:11:46
 #  File has been updated.
 #  Successfully updated.
 
@@ -338,28 +330,25 @@ all: main
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/11=0%
+# Load=0/32=0%, Rehash=0, Collisions=0/5=0%
 
-objects/Sphere.o: src/Sphere.cpp
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'Sphere'
-#  Last modified 2022-02-14 03:32:11
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 34):
-	$(CC) -c $(INCLUDE_PATHS) $< -o $@
+# Not a target:
+objects/Sphere.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 src/Material.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-02-13 21:59:34
+#  Last modified 2022-02-21 18:46:45
 #  File has been updated.
 #  Successfully updated.
 
 objects/Light.o: src/Light.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'Light'
-#  Last modified 2022-02-14 03:32:07
+#  Last modified 2022-02-21 20:21:58
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 34):
@@ -368,50 +357,30 @@ objects/Light.o: src/Light.cpp
 # Not a target:
 src/Camera.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-02-13 20:57:24
+#  Last modified 2022-02-14 03:46:42
 #  File has been updated.
 #  Successfully updated.
 
 main: objects/Camera.o objects/FrameBuffer.o objects/Light.o objects/Material.o objects/Ray.o objects/RayTracer.o objects/Scene.o objects/Sphere.o
 #  Implicit rule search has not been done.
-#  Implicit/static pattern stem: ''
 #  File does not exist.
 #  File has been updated.
 #  Needs to be updated (-q is set).
-# automatic
-# @ := main
-# automatic
-# * := 
-# automatic
-# < := objects/Camera.o
-# automatic
-# + := objects/Camera.o objects/FrameBuffer.o objects/Light.o objects/Material.o objects/Ray.o objects/RayTracer.o objects/Scene.o objects/Sphere.o
-# automatic
-# % := 
-# automatic
-# ^ := objects/Camera.o objects/FrameBuffer.o objects/Light.o objects/Material.o objects/Ray.o objects/RayTracer.o objects/Scene.o objects/Sphere.o
-# automatic
-# ? := objects/Camera.o objects/FrameBuffer.o objects/Light.o objects/Material.o objects/Ray.o objects/RayTracer.o objects/Scene.o objects/Sphere.o
-# automatic
-# | := 
 # variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=5/19=26%
+# Load=0/32=0%, Rehash=0, Collisions=0/5=0%
 #  recipe to execute (from 'Makefile', line 31):
 	$(CC) $(OBJS_FILES) main.cpp $(INCLUDE_PATHS) $(COMPILER_FLAGS) -o $(EXE_NAME)
 
-objects/Scene.o: src/Scene.cpp
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'Scene'
-#  Last modified 2022-02-14 03:32:10
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 34):
-	$(CC) -c $(INCLUDE_PATHS) $< -o $@
+# Not a target:
+objects/Scene.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 objects/Ray.o: src/Ray.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'Ray'
-#  Last modified 2022-02-14 03:32:08
+#  Last modified 2022-02-21 20:21:59
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 34):
@@ -427,39 +396,44 @@ cleanIm:
 objects/RayTracer.o: src/RayTracer.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'RayTracer'
-#  Last modified 2022-02-14 03:32:09
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := objects/RayTracer.o
+# automatic
+# * := RayTracer
+# automatic
+# < := src/RayTracer.cpp
+# automatic
+# + := src/RayTracer.cpp
+# automatic
+# % := 
+# automatic
+# ^ := src/RayTracer.cpp
+# automatic
+# ? := src/RayTracer.cpp
+# automatic
+# | := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=2/15=13%
 #  recipe to execute (from 'Makefile', line 34):
 	$(CC) -c $(INCLUDE_PATHS) $< -o $@
 
-# Not a target:
-.SUFFIXES:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-src/Sphere.cpp:
-#  Implicit rule search has been done.
-#  Last modified 2022-02-13 16:30:32
-#  File has been updated.
-#  Successfully updated.
-
 # files hash-table stats:
-# Load=23/1024=2%, Rehash=0, Collisions=0/69=0%
+# Load=21/1024=2%, Rehash=0, Collisions=0/60=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 69 / storage = 714 B / avg = 10 B
-# current buf: size = 8162 B / used = 714 B / count = 69 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 64 / storage = 662 B / avg = 10 B
+# current buf: size = 8162 B / used = 662 B / count = 64 / avg = 10 B
 
-# strcache performance: lookups = 91 / hit rate = 24%
+# strcache performance: lookups = 83 / hit rate = 22%
 # hash-table stats:
-# Load=69/8192=1%, Rehash=0, Collisions=1/91=1%
-# Finished Make data base on Mon Feb 14 03:46:21 2022
+# Load=64/8192=1%, Rehash=0, Collisions=0/83=0%
+# Finished Make data base on Mon Feb 21 20:27:00 2022
 
  

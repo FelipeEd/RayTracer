@@ -12,6 +12,12 @@ FrameBuffer::FrameBuffer(int w, int h)
     }
 }
 
+glm::vec3 gammaCorrect(glm::vec3 color)
+{
+    float exp = 1 / (2.2f * 2);
+    return glm::vec3(glm::pow(color.r, exp), glm::pow(color.g, exp), glm::pow(color.b, exp));
+}
+
 void FrameBuffer::savePPM(const char *fileName)
 {
     std::ofstream ofs(fileName, std::ios_base::out | std::ios_base::binary);
@@ -21,8 +27,13 @@ void FrameBuffer::savePPM(const char *fileName)
 
     for (int j = height - 1; j >= 0; j--)
         for (int i = 0; i < width; i++)
-            ofs << (char)(data[i + j * width].r * 255) << (char)(data[i + j * width].g * 255) << (char)(data[i + j * width].b * 255);
-
+        {
+            glm::vec3 pixColor = data[i + j * width];
+            pixColor = gammaCorrect(pixColor);
+            if (pixColor.r > 1.f || pixColor.g > 1.f || pixColor.b > 1.f)
+                std::cerr << "pixel not normalized";
+            ofs << (char)(pixColor.r * 255) << (char)(pixColor.g * 255) << (char)(pixColor.b * 255);
+        }
     ofs.close();
 }
 

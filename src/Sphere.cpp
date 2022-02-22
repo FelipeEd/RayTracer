@@ -1,4 +1,4 @@
-#include "Sphere.h"
+#include "Shapes.h"
 
 bool Sphere::hit(const Ray &ray, float t_min, float t_max, hit_record &rec) const
 {
@@ -24,6 +24,7 @@ bool Sphere::hit(const Ray &ray, float t_min, float t_max, hit_record &rec) cons
     rec.t = root;
     rec.p = ray.at(rec.t);
     rec.normal = (rec.p - this->pos) / r;
+    rec.color = material->getPigment();
 
     return true;
 }

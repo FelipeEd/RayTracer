@@ -1,11 +1,6 @@
 #include "Material.h"
 
-Material::Material()
+glm::vec3 Solid::getPigment() const
 {
-
-}
-
-Material::~Material()
-{
-
+    return m_flatColor;
 }

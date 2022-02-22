@@ -15,7 +15,7 @@ public:
     unsigned int width, height;  // Image dimensions
     std::vector<glm::vec3> data; // Pixel data
 
-    FrameBuffer(int w = 800, int h = 600);
+    FrameBuffer(int w, int h);
     ~FrameBuffer(){};
 
     void savePPM(const char *fileName);
