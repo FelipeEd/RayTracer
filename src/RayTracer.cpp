@@ -16,7 +16,7 @@ glm::vec3 difuse(const Scene &scene, glm::vec3 hitpoint)
         Ray ray = Ray(hitpoint, target - hitpoint);
         float d = glm::distance(target, hitpoint);
 
-        if (!scene.hit(ray, 0, d, aux))
+        // if (!scene.hit(ray, 0, d, aux))
         {
             float attenuationCoefficient = (1.0f / (light->m_constAtt + light->m_pDist * d + light->m_pDist2 * d * d));
             // std::cerr << "att coef : " << attenuationCoefficient << "\n";
@@ -24,6 +24,19 @@ glm::vec3 difuse(const Scene &scene, glm::vec3 hitpoint)
         }
     }
     return diffuseColor;
+}
+glm::vec3 specular(const Scene &scene, hit_record hitpoint, const Camera &cam)
+{
+    glm::vec3 specularColor(0.0f);
+    glm::vec3 viewDir = glm::normalize(cam.pos - hitpoint.p);
+    for (auto light : scene.lights)
+    {
+        glm::vec3 lightDir = glm::normalize(light->m_pos - hitpoint.p);
+        glm::vec3 reflectDir = glm::reflect(-lightDir, hitpoint.normal);
+        float spec = glm::pow(glm::max(glm::dot(viewDir, reflectDir), 0.0f), hitpoint.material->alpha);
+        specularColor += +spec * light->m_color;
+    }
+    return specularColor;
 }
 
 // Runs for each ray and returns a color
@@ -52,7 +65,9 @@ glm::vec3 RayTracer::recursiveRayTracing(const Ray &ray, const Scene &scene, int
             return rec.material->ka * rec.texColor;
         }
         */
-        return difuse(scene, rec.p) + rec.texColor * rec.material->ka; // * rec.material->kd;
+        return difuse(scene, rec.p) * rec.material->kd + // diffuse
+               rec.texColor * rec.material->ka +         // ambient
+               specular(scene, rec, camera) * rec.material->ks;
     }
 
     // if the ray goes to infinity return a Skycolor

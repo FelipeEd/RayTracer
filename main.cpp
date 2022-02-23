@@ -29,9 +29,9 @@ int main(int argc, char **argv)
 {
     auto start = std::chrono::high_resolution_clock::now();
 
-    int width = 1280;
-    int height = 720;
-    int samples = 4;
+    int width = 800;
+    int height = 600;
+    int samples = 3;
     int bounces = 2;
 
     // TODO These must be read from a input file
@@ -51,13 +51,13 @@ int main(int argc, char **argv)
 
     // Lights
     // scene.addLight(std::make_shared<Light>(Light({0.0f, 0.0f, 0.0f}, {1.0f, 1.0f, 1.0f}, 1.0f, 0.0f, 0.0f)));
-    scene.addLight(std::make_shared<Light>(Light({60.0f, 160.0f, -200.0f}, {1.0f, 1.0f, 1.0f}, 1.0f, 0.0f, 0.0f)));
-    // scene.addLight(std::make_shared<Light>(Light({-80.0f, 160.0f, -200.0f}, {1.0f, 1.0f, 1.0f}, 1.0f, 0.0f, 0.0f)));
+    scene.addLight(std::make_shared<Light>(Light({50.0f, 80.0f, -200.0f}, {0.3f, 1.0f, 1.0f}, 0.0f, 0.00f, 0.00002f)));
+    scene.addLight(std::make_shared<Light>(Light({-80.0f, 160.0f, -200.0f}, {1.0f, 1.0f, 1.0f}, 0.0f, 0.0f, 0.00002f)));
 
     // Textures
     scene.addTexture(std::make_shared<Solid>(Solid({0.5f, 0.2f, 0.5f})));
     scene.addTexture(std::make_shared<Checker>(Checker({0.08f, 0.25f, 0.20f}, {0.93f, 0.83f, 0.82f}, 40.0f)));
-    scene.addTexture(std::make_shared<Solid>(Solid({0.9f, 0.9f, 0.9f})));
+    scene.addTexture(std::make_shared<Solid>(Solid({0.9f, 0.3f, 0.9f})));
 
     // Materials
     // ka kd ks alpha kr kt ior

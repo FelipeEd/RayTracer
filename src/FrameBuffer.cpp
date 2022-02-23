@@ -14,7 +14,7 @@ FrameBuffer::FrameBuffer(int w, int h)
 
 glm::vec3 gammaCorrect(glm::vec3 color)
 {
-    float exp = 1 / (2.2f * 2);
+    float exp = (2.2f);
     return glm::vec3(glm::pow(color.r, exp), glm::pow(color.g, exp), glm::pow(color.b, exp));
 }
 
@@ -31,15 +31,21 @@ void FrameBuffer::savePPM(const char *fileName)
         {
             glm::vec3 pixColor = data[i + j * width];
 
-            // pixColor = gammaCorrect(pixColor); //! GAMMA CORRECTION OFF
+            pixColor = gammaCorrect(pixColor); //! GAMMA CORRECTION OFF
 
             if (pixColor.r > 1.f || pixColor.g > 1.f || pixColor.b > 1.f)
+            {
                 NotNormalized = true;
-
-            pixColor.r = glm::clamp(pixColor.r, 0.0f, 1.0f);
-            pixColor.g = glm::clamp(pixColor.g, 0.0f, 1.0f);
-            pixColor.b = glm::clamp(pixColor.b, 0.0f, 1.0f);
-
+                pixColor.r = 1.0f;
+                pixColor.g = 0.0f;
+                pixColor.b = 0.0f;
+            }
+            else
+            {
+                pixColor.r = glm::clamp(pixColor.r, 0.0f, 1.0f);
+                pixColor.g = glm::clamp(pixColor.g, 0.0f, 1.0f);
+                pixColor.b = glm::clamp(pixColor.b, 0.0f, 1.0f);
+            }
             ofs << (char)(pixColor.r * 255) << (char)(pixColor.g * 255) << (char)(pixColor.b * 255);
         }
     if (NotNormalized)
