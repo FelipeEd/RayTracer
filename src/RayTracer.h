@@ -24,7 +24,7 @@ public:
     void render(const Scene &scene, int samples, int bounces);
 
 private:
-    glm::vec3 getHitColor(const Ray &ray, const Scene &scene, int depth);
+    glm::vec3 recursiveRayTracing(const Ray &ray, const Scene &scene, int depth);
 };
 
 #endif

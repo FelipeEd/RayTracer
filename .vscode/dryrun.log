@@ -4,11 +4,11 @@ g++ -c -Iinclude  src/AuxFunctions.cpp -o objects/AuxFunctions.o
 g++ -c -Iinclude  src/Camera.cpp -o objects/Camera.o
 g++ -c -Iinclude  src/FrameBuffer.cpp -o objects/FrameBuffer.o
 g++ -c -Iinclude  src/Light.cpp -o objects/Light.o
-g++ -c -Iinclude  src/Material.cpp -o objects/Material.o
 g++ -c -Iinclude  src/Ray.cpp -o objects/Ray.o
 g++ -c -Iinclude  src/RayTracer.cpp -o objects/RayTracer.o
 g++ -c -Iinclude  src/Scene.cpp -o objects/Scene.o
 g++ -c -Iinclude  src/Sphere.cpp -o objects/Sphere.o
-g++ ./objects/AuxFunctions.o ./objects/Camera.o ./objects/FrameBuffer.o ./objects/Light.o ./objects/Material.o ./objects/Ray.o ./objects/RayTracer.o ./objects/Scene.o ./objects/Sphere.o main.cpp -Iinclude  -O2  -o bin/raytracer.exe
+g++ -c -Iinclude  src/Texture.cpp -o objects/Texture.o
+g++ ./objects/AuxFunctions.o ./objects/Camera.o ./objects/FrameBuffer.o ./objects/Light.o ./objects/Ray.o ./objects/RayTracer.o ./objects/Scene.o ./objects/Sphere.o ./objects/Texture.o main.cpp -Iinclude  -O2  -o bin/raytracer.exe
 make: Leaving directory 'c:/GitHub/RayTracer'
  

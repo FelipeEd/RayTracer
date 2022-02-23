@@ -43,5 +43,7 @@ void printStatus()
     notready += "]";
 
     std::cerr << ready + notready;
+    if (count == 10)
+        std::cerr << "\n";
     count++;
 }
