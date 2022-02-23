@@ -20,6 +20,7 @@ glm::vec3 gammaCorrect(glm::vec3 color)
 
 void FrameBuffer::savePPM(const char *fileName)
 {
+    bool NotNormalized = false;
     std::ofstream ofs(fileName, std::ios_base::out | std::ios_base::binary);
     ofs << "P6" << std::endl
         << width << ' ' << height << std::endl
@@ -29,11 +30,20 @@ void FrameBuffer::savePPM(const char *fileName)
         for (int i = 0; i < width; i++)
         {
             glm::vec3 pixColor = data[i + j * width];
-            pixColor = gammaCorrect(pixColor);
+
+            pixColor = gammaCorrect(pixColor); //! GAMMA CORRECTION OFF
+
             if (pixColor.r > 1.f || pixColor.g > 1.f || pixColor.b > 1.f)
-                std::cerr << "pixel not normalized";
+                NotNormalized = true;
+
+            pixColor.r = clamp(pixColor.r, 0.0f, 1.0f);
+            pixColor.g = clamp(pixColor.g, 0.0f, 1.0f);
+            pixColor.b = clamp(pixColor.b, 0.0f, 1.0f);
+
             ofs << (char)(pixColor.r * 255) << (char)(pixColor.g * 255) << (char)(pixColor.b * 255);
         }
+    if (NotNormalized)
+        std::cerr << "WARNING :: Pixel not normalized!\n";
     ofs.close();
 }
 

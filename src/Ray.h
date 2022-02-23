@@ -1,6 +1,3 @@
-#ifndef RAY_H
-#define RAY_H
-
 #pragma once
 
 #include <glm\glm.hpp>
@@ -18,5 +15,3 @@ public:
     bool hit_sphere(const glm::vec3 &center, double radius) const;
     glm::vec3 at(float t) const;
 };
-
-#endif

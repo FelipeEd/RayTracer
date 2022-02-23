@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "AuxFunctions.h"
 #include "Data.h"
 #include "Ray.h"
 #include "Scene.h"

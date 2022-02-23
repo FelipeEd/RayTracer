@@ -20,52 +20,13 @@ glm::vec3 RayTracer::getHitColor(const Ray &ray, const Scene &scene, int depth)
     if (scene.hit(ray, 0, 9999999, rec))
     {
         glm::vec3 target = rec.p + rec.normal; // + random_in_unit_sphere();
-        return 0.5f * rec.color * getHitColor(Ray(rec.p, target - rec.p), scene, depth - 1);
-        // return glm::vec3(0.5, 0.0, 0.0);
+        if (rec.material->m_phys.kr > 0)
+            return rec.material->m_phys.ka * rec.material->m_phys.kr * rec.color * getHitColor(Ray(rec.p, target - rec.p), scene, depth - 1);
+        return rec.material->m_phys.ka * rec.color;
     }
 
     float t = 0.5f * (ray.dir.y + 1.0f);
     return (1.0f - t) * glm::vec3(0.6, 0.6, 0.6) + t * glm::vec3(0.054, 0.011, 0.188);
-}
-
-static unsigned int g_seed;
-
-inline int fastrand()
-{
-    g_seed = (214013 * g_seed + 2531011);
-    return (g_seed >> 16) & 0x7FFF;
-}
-
-inline double random_double()
-{
-    // Returns a random real in [0,1).
-    return fastrand() / (RAND_MAX + 1.0);
-}
-
-void printStatus()
-{
-    static int count = 0;
-    std::cerr << "\r";
-    for (int i = 0; i < 10; i++)
-    {
-        std::cerr << "\b";
-    }
-
-    std::string ready = "[";
-    std::string notready = "";
-
-    for (int i = 0; i < count; i++)
-    {
-        ready += "#";
-    }
-    for (int i = 0; i < 10 - count; i++)
-    {
-        notready += "-";
-    }
-    notready += "]";
-
-    std::cerr << ready + notready;
-    count++;
 }
 
 void RayTracer::render(const Scene &scene, int samples, int bounces)
@@ -80,8 +41,8 @@ void RayTracer::render(const Scene &scene, int samples, int bounces)
             glm::vec3 pixColor(0.0f);
             for (int k = 0; k < samples; k++)
             {
-                float u = float(i + random_double()) / (framebuffer.width - 1);
-                float v = float(j + random_double()) / (framebuffer.height - 1);
+                float u = float(i + random_float()) / (framebuffer.width - 1);
+                float v = float(j + random_float()) / (framebuffer.height - 1);
                 Ray ray = camera.getRay(u, v);
                 pixColor += getHitColor(ray, scene, bounces);
             }

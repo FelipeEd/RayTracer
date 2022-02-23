@@ -1,6 +1,3 @@
-#ifndef FRAMEBUFFER_H
-#define FRAMEBUFFER_H
-
 #pragma once
 
 #include <vector>
@@ -8,6 +5,8 @@
 #include <fstream>
 #include <iostream>
 #include <glm\glm.hpp>
+
+#include "AuxFunctions.h"
 
 class FrameBuffer
 {
@@ -23,5 +22,3 @@ public:
 
 private:
 };
-
-#endif

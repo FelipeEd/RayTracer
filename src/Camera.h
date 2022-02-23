@@ -1,6 +1,3 @@
-#ifndef CAMERA_H
-#define CAMERA_H
-
 #pragma once
 
 #include <glm\glm.hpp>
@@ -30,5 +27,3 @@ public:
     float focalLength;
     float fov;
 };
-
-#endif
