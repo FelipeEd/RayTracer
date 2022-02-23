@@ -16,6 +16,12 @@ struct hit_record
     const DATA_materialPhys *material; // Material fisical proprieties
     float t;                           // t in which the ray hits
     bool frontFace;
+
+    inline void set_face_normal(const Ray &ray, const glm::vec3 &outward_normal)
+    {
+        frontFace = glm::dot(ray.dir, outward_normal) < 0;
+        normal = frontFace ? outward_normal : -outward_normal;
+    }
 };
 
 // Virtual class that objects, surfaces etc, must inherit in order to interact with rays

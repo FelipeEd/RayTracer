@@ -27,5 +27,9 @@ bool Sphere::hit(const Ray &ray, float t_min, float t_max, hit_record &rec) cons
     rec.texColor = m_texture->getPigment(rec.p, pos);
     rec.material = m_material;
 
+    // test
+    glm::vec3 outward_normal = (rec.p - pos) / r;
+    rec.set_face_normal(ray, outward_normal);
+
     return true;
 }

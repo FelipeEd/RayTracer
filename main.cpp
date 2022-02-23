@@ -29,10 +29,10 @@ int main(int argc, char **argv)
 {
     auto start = std::chrono::high_resolution_clock::now();
 
-    int width = 800;
-    int height = 600;
+    int width = 1280;
+    int height = 720;
     int samples = 4;
-    int bounces = 3;
+    int bounces = 2;
 
     // TODO These must be read from a input file
     DATA_camSpecs camSpecs = {
@@ -49,6 +49,11 @@ int main(int argc, char **argv)
     RayTracer renderer(camSpecs, width, height);
     int nframes = 1;
 
+    // Lights
+    // scene.addLight(std::make_shared<Light>(Light({0.0f, 0.0f, 0.0f}, {1.0f, 1.0f, 1.0f}, 1.0f, 0.0f, 0.0f)));
+    scene.addLight(std::make_shared<Light>(Light({60.0f, 160.0f, -200.0f}, {1.0f, 1.0f, 1.0f}, 1.0f, 0.0f, 0.0f)));
+    // scene.addLight(std::make_shared<Light>(Light({-80.0f, 160.0f, -200.0f}, {1.0f, 1.0f, 1.0f}, 1.0f, 0.0f, 0.0f)));
+
     // Textures
     scene.addTexture(std::make_shared<Solid>(Solid({0.5f, 0.2f, 0.5f})));
     scene.addTexture(std::make_shared<Checker>(Checker({0.08f, 0.25f, 0.20f}, {0.93f, 0.83f, 0.82f}, 40.0f)));
@@ -56,9 +61,9 @@ int main(int argc, char **argv)
 
     // Materials
     // ka kd ks alpha kr kt ior
-    scene.addMaterial(std::make_shared<DATA_materialPhys>(DATA_materialPhys({0.80, 0.00, 0.00, 1, 0.0, 0, 0})));
-    scene.addMaterial(std::make_shared<DATA_materialPhys>(DATA_materialPhys({0.30, 0.40, 0.00, 1, 0.3, 0, 0})));
-    scene.addMaterial(std::make_shared<DATA_materialPhys>(DATA_materialPhys({0.11, 0.11, 0.30, 1000, 0.7, 0, 0})));
+    scene.addMaterial(std::make_shared<DATA_materialPhys>(DATA_materialPhys({0.80f, 0.00f, 0.00f, 1.0f, 0.0f, 0.0f, 0.0f})));
+    scene.addMaterial(std::make_shared<DATA_materialPhys>(DATA_materialPhys({0.30f, 0.40f, 0.00f, 1.0f, 0.3f, 0.0f, 0.0f})));
+    scene.addMaterial(std::make_shared<DATA_materialPhys>(DATA_materialPhys({0.11f, 0.11f, 0.30f, 1000.0f, 0.7f, 0.0f, 0.0f})));
 
     float sphereRadius = 20.0f;
     scene.addShape(std::make_shared<Sphere>(Sphere({0.0f, 32.7f, 0.0f},
@@ -103,7 +108,9 @@ int main(int argc, char **argv)
                                                    *scene.getMaterial(2))));
 
     // SKY
-    // scene.addShape(std::make_shared<Sphere>(Sphere({0.0f, -0.0f, 0.0f}, 600, *scene.textures[0])));
+    scene.addShape(std::make_shared<Sphere>(Sphere({0.0f, -0.0f, 0.0f}, 600,
+                                                   *scene.getTexture(0),
+                                                   *scene.getMaterial(0))));
 
     scene.addShape(std::make_shared<Sphere>(Sphere({0.0f, -1052.66f, 0.0f}, 1000.0f,
                                                    *scene.getTexture(1),

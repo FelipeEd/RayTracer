@@ -31,14 +31,14 @@ void FrameBuffer::savePPM(const char *fileName)
         {
             glm::vec3 pixColor = data[i + j * width];
 
-            pixColor = gammaCorrect(pixColor); //! GAMMA CORRECTION OFF
+            // pixColor = gammaCorrect(pixColor); //! GAMMA CORRECTION OFF
 
             if (pixColor.r > 1.f || pixColor.g > 1.f || pixColor.b > 1.f)
                 NotNormalized = true;
 
-            pixColor.r = clamp(pixColor.r, 0.0f, 1.0f);
-            pixColor.g = clamp(pixColor.g, 0.0f, 1.0f);
-            pixColor.b = clamp(pixColor.b, 0.0f, 1.0f);
+            pixColor.r = glm::clamp(pixColor.r, 0.0f, 1.0f);
+            pixColor.g = glm::clamp(pixColor.g, 0.0f, 1.0f);
+            pixColor.b = glm::clamp(pixColor.b, 0.0f, 1.0f);
 
             ofs << (char)(pixColor.r * 255) << (char)(pixColor.g * 255) << (char)(pixColor.b * 255);
         }

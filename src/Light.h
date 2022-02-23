@@ -5,14 +5,21 @@
 class Light
 {
 public:
-    Light();
-    ~Light();
+    Light(glm::vec3 pos,
+          glm::vec3 color,
+          float constAtt,
+          float pDist,
+          float pDist2) : m_pos(pos),
+                          m_color(color),
+                          m_constAtt(constAtt),
+                          m_pDist(pDist),
+                          m_pDist2(pDist2) {}
 
-private:
-    glm::vec3 pos;
-    glm::vec3 color;
+public:
+    glm::vec3 m_pos;
+    glm::vec3 m_color;
 
-    float constAtt;  // Constant attenuation
-    float propDist;  // Attenuation proportional to the distance
-    float propDist2; // Attenuation proportional to the square of distance
+    float m_constAtt; // Constant attenuation
+    float m_pDist;    // Attenuation proportional to the distance
+    float m_pDist2;   // Attenuation proportional to the square of distance
 };

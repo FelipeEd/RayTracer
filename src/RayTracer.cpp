@@ -6,6 +6,26 @@ RayTracer::RayTracer(DATA_camSpecs camSpecs, int w, int h)
     camera = Camera(camSpecs.position, camSpecs.lookat, camSpecs.up, camSpecs.aspectRatio, camSpecs.FOV);
 }
 
+glm::vec3 difuse(const Scene &scene, glm::vec3 hitpoint)
+{
+    hit_record aux;
+    glm::vec3 diffuseColor(0.0f);
+    for (auto light : scene.lights)
+    {
+        glm::vec3 target = light->m_pos;
+        Ray ray = Ray(hitpoint, target - hitpoint);
+        float d = glm::distance(target, hitpoint);
+
+        if (!scene.hit(ray, 0, d, aux))
+        {
+            float attenuationCoefficient = (1.0f / (light->m_constAtt + light->m_pDist * d + light->m_pDist2 * d * d));
+            // std::cerr << "att coef : " << attenuationCoefficient << "\n";
+            diffuseColor += light->m_color * attenuationCoefficient;
+        }
+    }
+    return diffuseColor;
+}
+
 // Runs for each ray and returns a color
 glm::vec3 RayTracer::recursiveRayTracing(const Ray &ray, const Scene &scene, int depth)
 {
@@ -21,10 +41,18 @@ glm::vec3 RayTracer::recursiveRayTracing(const Ray &ray, const Scene &scene, int
 
     if (scene.hit(ray, 0, 9999999, rec))
     {
-        glm::vec3 target = rec.p + rec.normal; // + random_in_unit_sphere();
+        /*
         if (rec.material->kr > 0)
+        {
+            glm::vec3 target = rec.p + rec.normal; // + random_in_unit_sphere();
             return rec.material->ka * rec.material->kr * rec.texColor * recursiveRayTracing(Ray(rec.p, target - rec.p), scene, depth - 1);
-        return rec.material->ka * rec.texColor;
+        }
+        else
+        {
+            return rec.material->ka * rec.texColor;
+        }
+        */
+        return difuse(scene, rec.p) + rec.texColor * rec.material->ka; // * rec.material->kd;
     }
 
     // if the ray goes to infinity return a Skycolor
@@ -47,10 +75,19 @@ void RayTracer::render(const Scene &scene, int samples, int bounces)
         {
             // Pixels starts as black
             glm::vec3 pixColor(0.0f);
-            for (int k = 0; k < samples; k++)
+
+            float u = float(i) / (framebuffer.width);
+            float v = float(j) / (framebuffer.height);
+
+            Ray ray = camera.getRay(u, v);
+            pixColor += recursiveRayTracing(ray, scene, bounces);
+
+            for (int k = 0; k < samples - 1; k++)
             {
+
                 float u = float(i + random_float()) / (framebuffer.width - 1);
                 float v = float(j + random_float()) / (framebuffer.height - 1);
+
                 Ray ray = camera.getRay(u, v);
                 pixColor += recursiveRayTracing(ray, scene, bounces);
             }

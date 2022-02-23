@@ -14,8 +14,8 @@ class Scene : public Shape
 public:
     std::vector<std::shared_ptr<Texture>> textures;
     std::vector<std::shared_ptr<DATA_materialPhys>> materials;
-    std::vector<std::shared_ptr<Shape>> objects;
     std::vector<std::shared_ptr<Light>> lights;
+    std::vector<std::shared_ptr<Shape>> objects;
 
 public:
     Scene() {}
@@ -24,6 +24,7 @@ public:
     void addShape(std::shared_ptr<Shape> object) { objects.push_back(object); }
     void addTexture(std::shared_ptr<Texture> texture) { textures.push_back(texture); }
     void addMaterial(std::shared_ptr<DATA_materialPhys> material) { materials.push_back(material); }
+    void addLight(std::shared_ptr<Light> light) { lights.push_back(light); }
 
     std::shared_ptr<Texture> getTexture(unsigned int i) { return textures[i]; }
     std::shared_ptr<DATA_materialPhys> getMaterial(unsigned int i) { return materials[i]; }
