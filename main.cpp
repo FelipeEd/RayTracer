@@ -144,9 +144,9 @@ int main(int argc, char **argv)
     int bounces = 3;
     int nframes = 1;
 
-    scene.addShape(std::make_shared<Sphere>(Sphere({0.0f, -1052.66f, 0.0f}, 1000.0f,
-                                                   *scene.getTexture(1),
-                                                   *scene.getMaterial(1))));
+    // scene.addShape(std::make_shared<Sphere>(Sphere({0.0f, -1052.66f, 0.0f}, 1000.0f,
+    //                                                *scene.getTexture(1),
+    //                                                *scene.getMaterial(1))));
 
     if (argc > 1)
         std::cerr << "Printing " << argv[1] << "\n";

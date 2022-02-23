@@ -67,7 +67,7 @@ glm::vec3 RayTracer::recursiveRayTracing(const Ray &ray, const Scene &scene, int
 
     if (scene.hit(ray, 0, 9999999, rec))
     {
-        if (rec.material->kr == 0 && rec.material->kt == 0)
+        if (rec.material->kr == 0) // if (rec.material->kr == 0 && rec.material->kt == 0)
         {
             glm::vec3 ambient = scene.lights[0]->m_color * rec.material->ka * rec.texColor;
             return difuseSpecular(scene, rec, camera) + ambient;
@@ -79,6 +79,7 @@ glm::vec3 RayTracer::recursiveRayTracing(const Ray &ray, const Scene &scene, int
             return (1 - rec.material->kr) * (difuseSpecular(scene, rec, camera) + ambient) +
                    rec.material->kr * recursiveRayTracing(Ray(rec.p + 0.001f * rec.normal, target - rec.p), scene, depth - 1);
         }
+        /*
         else if (rec.material->kt > 0)
         {
 
@@ -109,6 +110,7 @@ glm::vec3 RayTracer::recursiveRayTracing(const Ray &ray, const Scene &scene, int
             return (1 - rec.material->kt) * (difuseSpecular(scene, rec, camera) + ambient) +
                    rec.material->kt * recursiveRayTracing(scattered, scene, depth - 1);
         }
+        */
     }
 
     // if the ray goes to infinity return a Skycolor
