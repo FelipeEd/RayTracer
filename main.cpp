@@ -12,105 +12,137 @@
 #include "src/Shapes.h"
 #include "src/Data.h"
 
-struct input
+// Print vec 3
+void pv3(const char *frase, glm::vec3 a)
 {
-    // Camera
-    glm::vec3 camPos;
-    glm::vec3 cmlookAt;
-    glm::vec3 camNormal;
-    float camFOV;
+    std::cerr << frase
+              << "  ";
+    std::cerr << a.x << " " << a.y << " " << a.z << "\n";
+}
 
-    // Lights
-    std::vector<Light> lights; // ! The first one is ambient light
-    // TODO Pigmentos
+struct App
+{
+    Scene scene;
+    RayTracer raytracer;
 };
+
+App readInputFile(const char *filename, int w, int h)
+{
+    using namespace std;
+    ifstream ifs(filename);
+    Scene scene;
+
+    DATA_camSpecs camSpecs;
+
+    camSpecs.aspectRatio = (float)w / h;
+    // Load camera
+    ifs >> camSpecs.position.x >> camSpecs.position.y >> camSpecs.position.z;
+    ifs >> camSpecs.lookat.x >> camSpecs.lookat.y >> camSpecs.lookat.z;
+    ifs >> camSpecs.up.x >> camSpecs.up.y >> camSpecs.up.z;
+    ifs >> camSpecs.FOV;
+
+    RayTracer raytracer(camSpecs, w, h);
+
+    // load lights
+    int nLights = 0;
+    ifs >> nLights;
+
+    for (int i = 0; i < nLights; i++)
+    {
+        glm::vec3 pos, color;
+        float c, l, s;
+        ifs >> pos.x >> pos.y >> pos.z >> color.x >> color.y >> color.z >> c >> l >> s;
+        scene.addLight(make_shared<Light>(Light(pos, color, c, l, s)));
+    }
+
+    // Load pigments
+    int nPigments = 0;
+    ifs >> nPigments;
+
+    for (int i = 0; i < nPigments; i++)
+    {
+        glm::vec3 color1, color2;
+        glm::vec4 p0, p1;
+        float cubesize;
+        string type, texturename;
+
+        ifs >> type;
+        if (type == "solid")
+        {
+            ifs >> color1.x >> color1.y >> color1.z;
+            scene.addTexture(make_shared<Solid>(Solid(color1)));
+        }
+        if (type == "checker")
+        {
+            ifs >> color1.x >> color1.y >> color1.z >> color2.x >> color2.y >> color2.z >> cubesize;
+            scene.addTexture(make_shared<Checker>(Checker(color1, color2, cubesize)));
+        }
+        if (type == "texmap")
+        {
+            ifs >> texturename;
+            ifs >> p0.x >> p0.y >> p0.z >> p0.w;
+            ifs >> p1.x >> p1.y >> p1.z >> p1.w;
+            scene.addTexture(make_shared<Solid>(Solid({0.5f, 0.1f, 0.5f})));
+        }
+    }
+
+    // Loading Materials
+    int nMaterials = 0;
+    ifs >> nMaterials;
+
+    for (int i = 0; i < nMaterials; i++)
+    {
+        float ka, kd, ks, alpha, kr, kt, ior;
+        ifs >> ka >> kd >> ks >> alpha >> kr >> kt >> ior;
+        scene.addMaterial(make_shared<DATA_materialPhys>(DATA_materialPhys{ka, kd, ks, alpha, kr, kt, ior}));
+    }
+
+    // Loading Shapes
+    int nShapes = 0;
+    ifs >> nShapes;
+
+    for (int i = 0; i < nShapes; i++)
+    {
+        int tex, mat, nPlanes;
+        glm::vec3 pos;
+        float radius;
+        string type;
+        ifs >> tex >> mat >> type;
+        if (type == "sphere")
+        {
+            ifs >> pos.x >> pos.y >> pos.z >> radius;
+
+            scene.addShape(std::make_shared<Sphere>(Sphere(pos,
+                                                           radius,
+                                                           *scene.getTexture(tex),
+                                                           *scene.getMaterial(mat))));
+        }
+        if (type == "polyhedron")
+        {
+            float a, b, c, d;
+            ifs >> nPlanes;
+            for (int j = 0; j < nPlanes; j++)
+            {
+                ifs >> a >> b >> c >> d;
+            }
+        }
+    }
+
+    ifs.close();
+    return App{scene, raytracer};
+}
 
 int main(int argc, char **argv)
 {
     auto start = std::chrono::high_resolution_clock::now();
 
-    int width = 800;
-    int height = 600;
-    int samples = 3;
-    int bounces = 2;
+    App app = readInputFile(argv[1], 800, 600);
+    Scene scene = app.scene;
+    RayTracer renderer = app.raytracer;
 
-    // TODO These must be read from a input file
-    DATA_camSpecs camSpecs = {
-        {0.0f, 30.0f, -200.0f}, // Position
-        {0.0f, 10.0f, -100.0f}, // Look at
-        {0.0f, 1.0f, 0.0f},     // Up
-        (float)width / height,  // Aspect Ratio
-        40.0f                   // FOV
-    };
-
-    //-------------------------------------------------------------------------
-
-    Scene scene;
-    RayTracer renderer(camSpecs, width, height);
+    int samples = 2;
+    int bounces = 3;
     int nframes = 1;
-
-    // Lights
-    // scene.addLight(std::make_shared<Light>(Light({0.0f, 0.0f, 0.0f}, {1.0f, 1.0f, 1.0f}, 1.0f, 0.0f, 0.0f)));
-    scene.addLight(std::make_shared<Light>(Light({50.0f, 80.0f, -200.0f}, {0.3f, 1.0f, 1.0f}, 0.0f, 0.00f, 0.00002f)));
-    scene.addLight(std::make_shared<Light>(Light({-80.0f, 160.0f, -200.0f}, {1.0f, 1.0f, 1.0f}, 0.0f, 0.0f, 0.00002f)));
-
-    // Textures
-    scene.addTexture(std::make_shared<Solid>(Solid({0.5f, 0.2f, 0.5f})));
-    scene.addTexture(std::make_shared<Checker>(Checker({0.08f, 0.25f, 0.20f}, {0.93f, 0.83f, 0.82f}, 40.0f)));
-    scene.addTexture(std::make_shared<Solid>(Solid({0.9f, 0.3f, 0.9f})));
-
-    // Materials
-    // ka kd ks alpha kr kt ior
-    scene.addMaterial(std::make_shared<DATA_materialPhys>(DATA_materialPhys({0.80f, 0.00f, 0.00f, 1.0f, 0.0f, 0.0f, 0.0f})));
-    scene.addMaterial(std::make_shared<DATA_materialPhys>(DATA_materialPhys({0.30f, 0.40f, 0.00f, 1.0f, 0.3f, 0.0f, 0.0f})));
-    scene.addMaterial(std::make_shared<DATA_materialPhys>(DATA_materialPhys({0.11f, 0.11f, 0.30f, 1000.0f, 0.7f, 0.0f, 0.0f})));
-
-    float sphereRadius = 20.0f;
-    scene.addShape(std::make_shared<Sphere>(Sphere({0.0f, 32.7f, 0.0f},
-                                                   sphereRadius,
-                                                   *scene.getTexture(2),
-                                                   *scene.getMaterial(2))));
-    scene.addShape(std::make_shared<Sphere>(Sphere({-5.98f, 0.0f, -22.31f},
-                                                   sphereRadius,
-                                                   *scene.getTexture(2),
-                                                   *scene.getMaterial(2))));
-    scene.addShape(std::make_shared<Sphere>(Sphere({-16.32f, 0.0f, 16.32f},
-                                                   sphereRadius,
-                                                   *scene.getTexture(2),
-                                                   *scene.getMaterial(2))));
-    scene.addShape(std::make_shared<Sphere>(Sphere({22.31f, 0.0f, 5.98f},
-                                                   sphereRadius,
-                                                   *scene.getTexture(2),
-                                                   *scene.getMaterial(2))));
-    scene.addShape(std::make_shared<Sphere>(Sphere({5.98f, -32.66f, 22.31f},
-                                                   sphereRadius,
-                                                   *scene.getTexture(2),
-                                                   *scene.getMaterial(2))));
-    scene.addShape(std::make_shared<Sphere>(Sphere({16.32f, -32.66f, -16.32f},
-                                                   sphereRadius,
-                                                   *scene.getTexture(2),
-                                                   *scene.getMaterial(2))));
-    scene.addShape(std::make_shared<Sphere>(Sphere({-22.31f, -32.66f, -5.98f},
-                                                   sphereRadius,
-                                                   *scene.getTexture(2),
-                                                   *scene.getMaterial(2))));
-    scene.addShape(std::make_shared<Sphere>(Sphere({-11.95f, -32.66f, -44.61f},
-                                                   sphereRadius,
-                                                   *scene.getTexture(2),
-                                                   *scene.getMaterial(2))));
-    scene.addShape(std::make_shared<Sphere>(Sphere({-32.66f, -32.66f, 32.66f},
-                                                   sphereRadius,
-                                                   *scene.getTexture(2),
-                                                   *scene.getMaterial(2))));
-    scene.addShape(std::make_shared<Sphere>(Sphere({44.61f, -32.66f, 11.95f},
-                                                   sphereRadius,
-                                                   *scene.getTexture(2),
-                                                   *scene.getMaterial(2))));
-
-    // SKY
-    scene.addShape(std::make_shared<Sphere>(Sphere({0.0f, -0.0f, 0.0f}, 600,
-                                                   *scene.getTexture(0),
-                                                   *scene.getMaterial(0))));
 
     scene.addShape(std::make_shared<Sphere>(Sphere({0.0f, -1052.66f, 0.0f}, 1000.0f,
                                                    *scene.getTexture(1),
@@ -121,22 +153,19 @@ int main(int argc, char **argv)
     else
         std::cerr << "Printing with no input !\n";
 
-    float camRadius = 15.0;
-    for (int i = 0; i < nframes; i++)
-    {
-        std::cerr << "Calculating image : " << std::to_string(i) << "\n";
-        // float theta = i * 2 * glm::pi<float>() / nframes;
-        //  renderer.camera.setPos(glm::vec3(camRadius * glm::sin(theta), 4.0, camRadius * glm::cos(theta)));
+    std::cerr << "Calculating image :\n";
+    renderer.render(scene, samples, bounces); // samples, bounces
 
-        renderer.render(scene, samples, bounces); // samples, bounces
+    std::cerr << "Printing image :\n";
+    std::string imageName = argv[2];
+    std::string filePath = "images\\" + imageName;
 
-        std::cerr << "Printing image : " << std::to_string(i) << "\n";
-        renderer.framebuffer.savePPM(("images\\image" + std::to_string(i) + ".ppm").c_str());
-    }
+    renderer.framebuffer.savePPM(filePath.c_str());
 
     //-------------------------------------------------------------------------
 
     auto stop = std::chrono::high_resolution_clock::now();
     std::cerr << "elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count() / 1000000.0f << " s\n";
+
     return 0;
 }

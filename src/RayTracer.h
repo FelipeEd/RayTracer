@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <glm/gtc/random.hpp>
+
 #include "AuxFunctions.h"
 #include "Data.h"
 #include "Ray.h"
