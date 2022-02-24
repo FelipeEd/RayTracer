@@ -76,41 +76,39 @@ glm::vec3 RayTracer::recursiveRayTracing(const Ray &ray, const Scene &scene, int
         {
             glm::vec3 target = rec.p + rec.normal; //+ glm::sphericalRand(1.0f);
             glm::vec3 ambient = scene.lights[0]->m_color * rec.material->ka * rec.texColor;
-            return (1 - rec.material->kr) * (difuseSpecular(scene, rec, camera) + ambient) +
+            return (difuseSpecular(scene, rec, camera) + ambient) +
                    rec.material->kr * recursiveRayTracing(Ray(rec.p + 0.001f * rec.normal, target - rec.p), scene, depth - 1);
         }
-        /*
-        else if (rec.material->kt > 0)
-        {
+        // else if (rec.material->kt > 0)
+        // {
 
-            float ir = rec.material->ior;
-            double refraction_ratio = rec.frontFace ? (1.0 / ir) : ir;
+        //     float ir = rec.material->ior;
+        //     double refraction_ratio = rec.frontFace ? (1.0 / ir) : ir;
 
-            glm::vec3 unit_direction = glm::normalize(ray.dir);
-            double cos_theta = fmin(dot(-unit_direction, rec.normal), 1.0);
-            double sin_theta = sqrt(1.0 - cos_theta * cos_theta);
+        //     glm::vec3 unit_direction = glm::normalize(ray.dir);
+        //     double cos_theta = fmin(dot(-unit_direction, rec.normal), 1.0);
+        //     double sin_theta = sqrt(1.0 - cos_theta * cos_theta);
 
-            bool cannot_refract = refraction_ratio * sin_theta > 1.0;
-            glm::vec3 direction;
+        //     bool cannot_refract = refraction_ratio * sin_theta > 1.0;
+        //     glm::vec3 direction;
 
-            if (cannot_refract || reflectance(cos_theta, refraction_ratio) > random_float())
-                direction = reflect(unit_direction, rec.normal);
-            else
-                direction = refract(unit_direction, rec.normal, refraction_ratio);
+        //     if (cannot_refract || reflectance(cos_theta, refraction_ratio) > random_float())
+        //         direction = reflect(unit_direction, rec.normal);
+        //     else
+        //         direction = refract(unit_direction, rec.normal, refraction_ratio);
 
-            Ray scattered(glm::vec3(0), glm::vec3(0));
-            if (rec.frontFace)
-                scattered = Ray(rec.p - 0.001f * rec.normal, direction);
-            else
-                scattered = Ray(rec.p + 0.001f * rec.normal, direction);
+        //     Ray scattered(glm::vec3(0), glm::vec3(0));
+        //     if (rec.frontFace)
+        //         scattered = Ray(rec.p - 0.001f * rec.normal, direction);
+        //     else
+        //         scattered = Ray(rec.p + 0.001f * rec.normal, direction);
 
-            // glm::vec3 target = refract(rec.p, rec.normal, rec.material->ior); //+ glm::sphericalRand(1.0f);
+        //     // glm::vec3 target = refract(rec.p, rec.normal, rec.material->ior); //+ glm::sphericalRand(1.0f);
 
-            glm::vec3 ambient = scene.lights[0]->m_color * rec.material->ka * rec.texColor;
-            return (1 - rec.material->kt) * (difuseSpecular(scene, rec, camera) + ambient) +
-                   rec.material->kt * recursiveRayTracing(scattered, scene, depth - 1);
-        }
-        */
+        //     glm::vec3 ambient = scene.lights[0]->m_color * rec.material->ka * rec.texColor;
+        //     return (1 - rec.material->kt) * (difuseSpecular(scene, rec, camera) + ambient) +
+        //            rec.material->kt * recursiveRayTracing(scattered, scene, depth - 1);
+        // }
     }
 
     // if the ray goes to infinity return a Skycolor

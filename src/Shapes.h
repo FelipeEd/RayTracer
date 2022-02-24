@@ -4,6 +4,7 @@
 #pragma once
 
 #include <glm\glm.hpp>
+#include <vector>
 #include "Ray.h"
 #include "Texture.h"
 
@@ -54,6 +55,18 @@ public:
                                                 r(radius),
                                                 Shape(texture, material) {}
 
+    virtual bool hit(const Ray &r, float t_min, float t_max, hit_record &rec) const override;
+};
+
+class Polyhedron : public Shape
+{
+public:
+    std::vector<glm::vec4> m_faces;
+
+    Polyhedron(std::vector<glm::vec4> faces,
+               const Texture &texture,
+               const DATA_materialPhys &material) : m_faces(faces),
+                                                    Shape(texture, material) {}
     virtual bool hit(const Ray &r, float t_min, float t_max, hit_record &rec) const override;
 };
 

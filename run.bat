@@ -1,2 +1,2 @@
-bin\raytracer.exe test4.txt image4.ppm
-images\image4.ppm
+bin\raytracer.exe tests\test5.in image5.ppm
+images\image5.ppm

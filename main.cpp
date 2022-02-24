@@ -82,7 +82,7 @@ App readInputFile(const char *filename, int w, int h)
             ifs >> texturename;
             ifs >> p0.x >> p0.y >> p0.z >> p0.w;
             ifs >> p1.x >> p1.y >> p1.z >> p1.w;
-            scene.addTexture(make_shared<Solid>(Solid({0.5f, 0.1f, 0.5f})));
+            scene.addTexture(make_shared<Solid>(Solid({0.0f, 0.5f, 0.5f})));
         }
     }
 
@@ -117,14 +117,21 @@ App readInputFile(const char *filename, int w, int h)
                                                            *scene.getTexture(tex),
                                                            *scene.getMaterial(mat))));
         }
+
         if (type == "polyhedron")
         {
+            vector<glm::vec4> faces;
             float a, b, c, d;
+
             ifs >> nPlanes;
             for (int j = 0; j < nPlanes; j++)
             {
                 ifs >> a >> b >> c >> d;
+                faces.push_back({a, b, c, d});
             }
+            scene.addShape(std::make_shared<Polyhedron>(Polyhedron(faces,
+                                                                   *scene.getTexture(tex),
+                                                                   *scene.getMaterial(mat))));
         }
     }
 
@@ -140,8 +147,8 @@ int main(int argc, char **argv)
     Scene scene = app.scene;
     RayTracer renderer = app.raytracer;
 
-    int samples = 2;
-    int bounces = 3;
+    int samples = 3;
+    int bounces = 10;
     int nframes = 1;
 
     // scene.addShape(std::make_shared<Sphere>(Sphere({0.0f, -1052.66f, 0.0f}, 1000.0f,
