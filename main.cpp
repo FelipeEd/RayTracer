@@ -26,6 +26,52 @@ struct App
     RayTracer raytracer;
 };
 
+App readInputFile(const char *filename, int w, int h);
+
+int main(int argc, char **argv)
+{
+    // Configs-----------------------------------------------
+    int samples = 30;
+    int bounces = 10;
+    bool imperfectShadows = true;
+    bool imperfectReflections = false;
+    //-------------------------------------------------------
+
+    auto start = std::chrono::high_resolution_clock::now();
+    App app;
+    if (argc == 5)
+        app = readInputFile(argv[1], std::stoi(argv[3]), std::stoi(argv[4]));
+    else
+        app = readInputFile(argv[1], 800, 600);
+
+    Scene scene = app.scene;
+    RayTracer renderer = app.raytracer;
+
+    renderer.imperfectReflection = imperfectReflections;
+    renderer.imperfectShadows = imperfectShadows;
+
+    if (argc > 1)
+        std::cerr << "Printing " << argv[1] << "\n";
+    else
+        std::cerr << "Printing with no input !\n";
+
+    std::cerr << "Calculating image :\n";
+    renderer.render(scene, samples, bounces); // samples, bounces
+
+    std::cerr << "Printing image :\n";
+    std::string imageName = argv[2];
+    std::string filePath = "images\\" + imageName;
+
+    renderer.framebuffer.savePPM(filePath.c_str());
+
+    //-------------------------------------------------------------------------
+
+    auto stop = std::chrono::high_resolution_clock::now();
+    std::cerr << "elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count() / 1000000.0f << " s\n";
+
+    return 0;
+}
+
 App readInputFile(const char *filename, int w, int h)
 {
     using namespace std;
@@ -137,45 +183,4 @@ App readInputFile(const char *filename, int w, int h)
 
     ifs.close();
     return App{scene, raytracer};
-}
-
-int main(int argc, char **argv)
-{
-    auto start = std::chrono::high_resolution_clock::now();
-    App app;
-    if (argc == 5)
-        app = readInputFile(argv[1], std::stoi(argv[3]), std::stoi(argv[4]));
-    else
-        app = readInputFile(argv[1], 800, 600);
-
-    Scene scene = app.scene;
-    RayTracer renderer = app.raytracer;
-
-    int samples = 10;
-    int bounces = 10;
-
-    // scene.addShape(std::make_shared<Sphere>(Sphere({0.0f, -1052.66f, 0.0f}, 1000.0f,
-    //                                                *scene.getTexture(1),
-    //                                                *scene.getMaterial(1))));
-
-    if (argc > 1)
-        std::cerr << "Printing " << argv[1] << "\n";
-    else
-        std::cerr << "Printing with no input !\n";
-
-    std::cerr << "Calculating image :\n";
-    renderer.render(scene, samples, bounces); // samples, bounces
-
-    std::cerr << "Printing image :\n";
-    std::string imageName = argv[2];
-    std::string filePath = "images\\" + imageName;
-
-    renderer.framebuffer.savePPM(filePath.c_str());
-
-    //-------------------------------------------------------------------------
-
-    auto stop = std::chrono::high_resolution_clock::now();
-    std::cerr << "elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count() / 1000000.0f << " s\n";
-
-    return 0;
 }

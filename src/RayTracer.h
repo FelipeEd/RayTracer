@@ -21,8 +21,12 @@ public:
     FrameBuffer framebuffer = FrameBuffer(800, 600);
 
 public:
+    bool imperfectReflection = false;
+    bool imperfectShadows = false;
+
     RayTracer(DATA_camSpecs camSpecs, int w, int h);
     RayTracer() {}
+    glm::vec3 difuseSpecular(const Scene &scene, hit_record hitpoint, const Camera &cam);
     void render(const Scene &scene, int samples, int bounces);
 
 private:

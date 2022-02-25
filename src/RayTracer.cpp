@@ -12,7 +12,7 @@ glm::vec3 random_vec3(float size)
     return a * size;
 }
 
-glm::vec3 difuseSpecular(const Scene &scene, hit_record hitpoint, const Camera &cam)
+glm::vec3 RayTracer::difuseSpecular(const Scene &scene, hit_record hitpoint, const Camera &cam)
 {
     hit_record aux;
     glm::vec3 specularColor(0.0f);
@@ -24,8 +24,11 @@ glm::vec3 difuseSpecular(const Scene &scene, hit_record hitpoint, const Camera &
         std::shared_ptr<Light> light = scene.lights[i];
 
         glm::vec3 lightDir = glm::normalize(light->m_pos - hitpoint.p);
-        // Ray ray = Ray(hitpoint.p + random_vec3(0.1f), light->m_pos - hitpoint.p);
-        Ray ray = Ray(hitpoint.p, light->m_pos - hitpoint.p );
+
+        Ray ray = Ray(hitpoint.p, light->m_pos - hitpoint.p);
+        if (imperfectShadows)
+            ray = Ray(hitpoint.p, light->m_pos - hitpoint.p + glm::sphericalRand(0.5f));
+
         float d = glm::distance(lightDir, hitpoint.p);
 
         glm::vec3 reflectDir = glm::reflect(-lightDir, hitpoint.normal);
@@ -87,7 +90,12 @@ glm::vec3 RayTracer::recursiveRayTracing(const Ray &ray, const Scene &scene, int
         }
         if ((rec.material->kr > 0.0) && rec.material->kt == 0.0)
         {
-            glm::vec3 target = rec.p + rec.normal; //+ glm::sphericalRand(1.0f);
+            glm::vec3 target;
+            if (imperfectReflection)
+                target = rec.p + rec.normal + glm::sphericalRand(0.1f);
+            else
+                target = rec.p + rec.normal;
+
             glm::vec3 ambient = scene.lights[0]->m_color * rec.material->ka * rec.texColor;
             ambient = rec.material->ka * rec.texColor;
             return (1 - rec.material->kr) * (difuseSpecular(scene, rec, camera) + ambient) +
