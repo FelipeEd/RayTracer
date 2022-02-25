@@ -6,6 +6,12 @@ RayTracer::RayTracer(DATA_camSpecs camSpecs, int w, int h)
     camera = Camera(camSpecs.position, camSpecs.lookat, camSpecs.up, camSpecs.aspectRatio, camSpecs.FOV);
 }
 
+glm::vec3 random_vec3(float size)
+{
+    glm::vec3 a = glm::normalize(glm::vec3(random_float()));
+    return a * size;
+}
+
 glm::vec3 difuseSpecular(const Scene &scene, hit_record hitpoint, const Camera &cam)
 {
     hit_record aux;
@@ -13,28 +19,34 @@ glm::vec3 difuseSpecular(const Scene &scene, hit_record hitpoint, const Camera &
     glm::vec3 diffuseColor(0.0f);
 
     glm::vec3 viewDir = glm::normalize(cam.pos - hitpoint.p);
-    for (auto light : scene.lights)
+    for (int i = 1; i < scene.lights.size(); i++)
     {
+        std::shared_ptr<Light> light = scene.lights[i];
+
         glm::vec3 lightDir = glm::normalize(light->m_pos - hitpoint.p);
-        // Ray ray = Ray(hitpoint.p + glm::sphericalRand(0.1f), light->m_pos - hitpoint.p);
-        Ray ray = Ray(hitpoint.p, light->m_pos - hitpoint.p);
+        // Ray ray = Ray(hitpoint.p + random_vec3(0.1f), light->m_pos - hitpoint.p);
+        Ray ray = Ray(hitpoint.p, light->m_pos - hitpoint.p );
         float d = glm::distance(lightDir, hitpoint.p);
 
         glm::vec3 reflectDir = glm::reflect(-lightDir, hitpoint.normal);
 
         if (!scene.hit(ray, 0.001f, d, aux))
         {
+            float attenuationCoefficient = (1.0f / (light->m_constAtt + light->m_pDist * d +
+                                                    light->m_pDist2 * d * d));
             // Specular
-            float spec = glm::pow(glm::max(glm::dot(viewDir, reflectDir), 0.0f), hitpoint.material->alpha);
-            specularColor += spec * light->m_color;
+            float spec = glm::pow(glm::max(glm::dot(viewDir, reflectDir), 0.0f),
+                                  hitpoint.material->alpha);
+            specularColor += spec * light->m_color * attenuationCoefficient;
 
             // Diffuse
             float diff = glm::max(glm::dot(hitpoint.normal, lightDir), 0.0f);
-            float attenuationCoefficient = (1.0f / (light->m_constAtt + light->m_pDist * d + light->m_pDist2 * d * d));
             diffuseColor += diff * light->m_color * attenuationCoefficient;
         }
     }
-    return (specularColor * hitpoint.material->ks + diffuseColor * hitpoint.material->kd) * hitpoint.texColor;
+    return (specularColor * hitpoint.material->ks +
+            diffuseColor * hitpoint.material->kd) *
+           hitpoint.texColor;
 }
 
 glm::vec3 refract(const glm::vec3 &uv, const glm::vec3 &n, float etai_over_etat)
@@ -67,48 +79,50 @@ glm::vec3 RayTracer::recursiveRayTracing(const Ray &ray, const Scene &scene, int
 
     if (scene.hit(ray, 0, 9999999, rec))
     {
-        if (rec.material->kr == 0) // if (rec.material->kr == 0 && rec.material->kt == 0)
+
+        if (rec.material->kr == 0.0 && rec.material->kt == 0.0) // if (rec.material->kr == 0 && rec.material->kt == 0)
         {
             glm::vec3 ambient = scene.lights[0]->m_color * rec.material->ka * rec.texColor;
             return difuseSpecular(scene, rec, camera) + ambient;
         }
-        else if (rec.material->kr > 0) // && rec.material->kt == 0)
+        if ((rec.material->kr > 0.0) && rec.material->kt == 0.0)
         {
             glm::vec3 target = rec.p + rec.normal; //+ glm::sphericalRand(1.0f);
             glm::vec3 ambient = scene.lights[0]->m_color * rec.material->ka * rec.texColor;
-            return (difuseSpecular(scene, rec, camera) + ambient) +
-                   rec.material->kr * recursiveRayTracing(Ray(rec.p + 0.001f * rec.normal, target - rec.p), scene, depth - 1);
+            ambient = rec.material->ka * rec.texColor;
+            return (1 - rec.material->kr) * (difuseSpecular(scene, rec, camera) + ambient) +
+                   rec.material->kr * recursiveRayTracing(Ray(rec.p + 0.001f * rec.normal, target - rec.p),
+                                                          scene, depth - 1);
         }
-        // else if (rec.material->kt > 0)
-        // {
+        if (rec.material->kt > 0)
+        {
+            float ir = rec.material->ior;
+            double refraction_ratio = rec.frontFace ? (1.0 / ir) : ir;
 
-        //     float ir = rec.material->ior;
-        //     double refraction_ratio = rec.frontFace ? (1.0 / ir) : ir;
+            glm::vec3 unit_direction = glm::normalize(ray.dir);
+            double cos_theta = fmin(dot(-unit_direction, rec.normal), 1.0);
+            double sin_theta = sqrt(1.0 - cos_theta * cos_theta);
 
-        //     glm::vec3 unit_direction = glm::normalize(ray.dir);
-        //     double cos_theta = fmin(dot(-unit_direction, rec.normal), 1.0);
-        //     double sin_theta = sqrt(1.0 - cos_theta * cos_theta);
+            bool cannot_refract = refraction_ratio * sin_theta > 1.0;
+            glm::vec3 direction;
 
-        //     bool cannot_refract = refraction_ratio * sin_theta > 1.0;
-        //     glm::vec3 direction;
+            if (cannot_refract || reflectance(cos_theta, refraction_ratio) > random_float())
+                direction = reflect(unit_direction, rec.normal);
+            else
+                direction = refract(unit_direction, rec.normal, refraction_ratio);
 
-        //     if (cannot_refract || reflectance(cos_theta, refraction_ratio) > random_float())
-        //         direction = reflect(unit_direction, rec.normal);
-        //     else
-        //         direction = refract(unit_direction, rec.normal, refraction_ratio);
+            Ray scattered(glm::vec3(0), glm::vec3(0));
+            if (rec.frontFace)
+                scattered = Ray(rec.p - 0.001f * rec.normal, direction);
+            else
+                scattered = Ray(rec.p + 0.001f * rec.normal, direction);
 
-        //     Ray scattered(glm::vec3(0), glm::vec3(0));
-        //     if (rec.frontFace)
-        //         scattered = Ray(rec.p - 0.001f * rec.normal, direction);
-        //     else
-        //         scattered = Ray(rec.p + 0.001f * rec.normal, direction);
+            // glm::vec3 target = refract(rec.p, rec.normal, rec.material->ior); //+ glm::sphericalRand(1.0f);
 
-        //     // glm::vec3 target = refract(rec.p, rec.normal, rec.material->ior); //+ glm::sphericalRand(1.0f);
-
-        //     glm::vec3 ambient = scene.lights[0]->m_color * rec.material->ka * rec.texColor;
-        //     return (1 - rec.material->kt) * (difuseSpecular(scene, rec, camera) + ambient) +
-        //            rec.material->kt * recursiveRayTracing(scattered, scene, depth - 1);
-        // }
+            glm::vec3 ambient = scene.lights[0]->m_color * rec.material->ka * rec.texColor;
+            return (1 - rec.material->kt) * (difuseSpecular(scene, rec, camera) + ambient) +
+                   rec.material->kt * recursiveRayTracing(scattered, scene, depth - 1);
+        }
     }
 
     // if the ray goes to infinity return a Skycolor

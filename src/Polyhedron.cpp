@@ -38,6 +38,5 @@ bool Polyhedron::hit(const Ray &ray, float t_min, float t_max, hit_record &rec) 
             }
         }
     }
-
     return false;
 }

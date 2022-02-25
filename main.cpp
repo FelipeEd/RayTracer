@@ -142,14 +142,17 @@ App readInputFile(const char *filename, int w, int h)
 int main(int argc, char **argv)
 {
     auto start = std::chrono::high_resolution_clock::now();
+    App app;
+    if (argc == 5)
+        app = readInputFile(argv[1], std::stoi(argv[3]), std::stoi(argv[4]));
+    else
+        app = readInputFile(argv[1], 800, 600);
 
-    App app = readInputFile(argv[1], 800, 600);
     Scene scene = app.scene;
     RayTracer renderer = app.raytracer;
 
-    int samples = 3;
+    int samples = 10;
     int bounces = 10;
-    int nframes = 1;
 
     // scene.addShape(std::make_shared<Sphere>(Sphere({0.0f, -1052.66f, 0.0f}, 1000.0f,
     //                                                *scene.getTexture(1),
