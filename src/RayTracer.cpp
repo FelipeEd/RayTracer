@@ -99,7 +99,8 @@ glm::vec3 RayTracer::recursiveRayTracing(const Ray &ray, const Scene &scene, int
             glm::vec3 ambient = scene.lights[0]->m_color * rec.material->ka * rec.texColor;
             ambient = rec.material->ka * rec.texColor;
             return (1 - rec.material->kr) * (difuseSpecular(scene, rec, camera) + ambient) +
-                   rec.material->kr * recursiveRayTracing(Ray(rec.p + 0.001f * rec.normal, target - rec.p),
+                   rec.material->kr * recursiveRayTracing(Ray(rec.p + 0.001f * rec.normal,
+                                                              target - rec.p),
                                                           scene, depth - 1);
         }
         if (rec.material->kt > 0)
